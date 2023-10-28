@@ -31,15 +31,15 @@ public class Ball2 {
         this.setXSpeed(xSpeed);
         this.setySpeed(ySpeed);
     }
-    public void update() {
-        x += getXSpeed();
-        y += getySpeed();
-
-        if (x+getXSpeed() < 0 || x+getXSpeed()+spr.getWidth() > Gdx.graphics.getWidth())
+    public void update() { //cambio variables 
+        /*x += getXSpeed();
+        y += getySpeed();*/
+        spr.setPosition(spr.getX() + getXSpeed(), spr.getY() + getySpeed());
+        if (spr.getX() < 0 || spr.getX()+spr.getWidth() > Gdx.graphics.getWidth())
         	setXSpeed(getXSpeed() * -1);
-        if (y+getySpeed() < 0 || y+getySpeed()+spr.getHeight() > Gdx.graphics.getHeight())
+        if (spr.getY() < 0 || spr.getY()+spr.getHeight() > Gdx.graphics.getHeight())
         	setySpeed(getySpeed() * -1);
-        spr.setPosition(x, y);
+        //spr.setPosition(x, y);
     }
     
     public Rectangle getArea() {

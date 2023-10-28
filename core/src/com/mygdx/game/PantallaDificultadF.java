@@ -6,18 +6,18 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-//creacion de primer commit :D
-public class PantallaGameOver implements Screen {
-
+public class PantallaDificultadF implements Screen{
+	
 	private SpaceNavigation game;
 	private OrthographicCamera camera;
 
-	public PantallaGameOver(SpaceNavigation game) {
-		this.game = game;
-        
+	public PantallaDificultadF(SpaceNavigation game2) {
+		// TODO Auto-generated constructor stub
+		game = game2;
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 1200, 800);
 	}
+
 
 	@Override
 	public void render(float delta) {
@@ -27,28 +27,26 @@ public class PantallaGameOver implements Screen {
 		game.getBatch().setProjectionMatrix(camera.combined);
 
 		game.getBatch().begin();
-		game.getFont().draw(game.getBatch(), "Game Over !!! ", 120, 400,400,1,true);
-		game.getFont().draw(game.getBatch(), "Pincha en cualquier lado para reiniciar ...", 100, 300);
+		game.getFont().draw(game.getBatch(), "Dificultad fácil", 430, 500);
+		game.getFont().draw(game.getBatch(), "Te mueves con WASD y disparas con las flechas", 240, 400);
 	
 		game.getBatch().end();
 
-		if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-			//Screen ss = new PantallaJuego(game,1,3,0,1,1,10,1);
-			Screen ss = new PantallaMenu(game);
+		if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+			Screen ss = new PantallaJuego(game,1,3,0,1,1,10,1);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
 			dispose();
 		}
-		if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-			//Screen ss = new PantallaJuego(game,1,3,0,1,1,10,2);
-			Screen ss = new PantallaMenu(game);
+		
+		if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			Screen ss = new PantallaJuego(game,1,3,0,1,1,10,2);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
 			dispose();
 		}
 	}
- 
-	
+
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
@@ -84,5 +82,7 @@ public class PantallaGameOver implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
-   
+	
+	
+
 }
