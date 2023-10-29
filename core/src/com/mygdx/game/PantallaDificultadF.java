@@ -29,7 +29,7 @@ public class PantallaDificultadF implements Screen{
 		game.getBatch().begin();
 		game.getFont().draw(game.getBatch(), "Dificultad fácil", 430, 500);
 		game.getFont().draw(game.getBatch(), "Te mueves con WASD y disparas con las flechas", 240, 400);
-	
+		game.getFont().draw(game.getBatch(), "Presiona ENTER para jugar", 240, 350);
 		game.getBatch().end();
 
 		if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
@@ -39,12 +39,12 @@ public class PantallaDificultadF implements Screen{
 			dispose();
 		}
 		
-		if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+		/*if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			Screen ss = new PantallaJuego(game,1,3,0,1,1,10,2);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
 			dispose();
-		}
+		}*/
 	}
 
 	@Override

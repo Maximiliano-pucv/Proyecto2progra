@@ -29,15 +29,15 @@ public class PantallaDificultadM implements Screen{
 		game.getBatch().begin();
 		game.getFont().draw(game.getBatch(), "Dificultad media", 430, 500);
 		game.getFont().draw(game.getBatch(), "Te mueves con WASD y disparas con las flechas", 230, 400);
-	
+		game.getFont().draw(game.getBatch(), "Presiona ESPACE para jugar", 230, 350);
 		game.getBatch().end();
 
-		if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+		/*if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
 			Screen ss = new PantallaJuego(game,1,3,0,1,1,10,1);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
 			dispose();
-		}
+		}*/
 		
 		if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			Screen ss = new PantallaJuego(game,1,3,0,1,1,10,2);
