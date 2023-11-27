@@ -42,6 +42,7 @@ public class Nave4wayshoot extends Nave{
     	    juego.agregarBala(bala);
     	    soundBala.play();
         }
+        //test de commit atte tomas perez
 	}
 	
 
