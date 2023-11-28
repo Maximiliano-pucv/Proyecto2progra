@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class Nave4wayshoot extends Nave{
 	public Nave4wayshoot(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala){
-		super(x, y, tx, soundChoque, txBala, soundBala);
+		super(x, y, tx, soundChoque, txBala, soundBala,3,0,0,false,false,50);
 		
 	}
 

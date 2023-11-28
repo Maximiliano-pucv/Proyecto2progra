@@ -9,19 +9,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
 public abstract class Nave {
-	private boolean destruida = false;
-    private int vidas = 3;
-    private float xVel = 0;
-    private float yVel = 0;
+	private boolean destruida;
+    private int vidas;
+    private float xVel;
+    private float yVel;
     private Sprite spr;
     private Sound sonidoHerido;
     private Sound soundBala;
     private Texture txBala;
-    private boolean herido = false;
-    private int tiempoHeridoMax=50;
+    private boolean herido;
+    private int tiempoHeridoMax;
     private int tiempoHerido;
     
-    public Nave(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala) {
+    public Nave(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala, int vidas,
+    		float xVel, float  yVel, boolean herido, boolean destruida, int tiempoheridoMax){
+    	this.destruida = destruida;
+    	this.vidas = vidas;
+    	this.xVel = xVel;
+    	this.yVel = yVel;
+    	this.herido = herido;
+    	this.tiempoHeridoMax = tiempoheridoMax;
     	sonidoHerido = soundChoque;
     	this.soundBala = soundBala;
     	this.txBala = txBala;

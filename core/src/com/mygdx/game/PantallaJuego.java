@@ -56,17 +56,25 @@ public class PantallaJuego implements Screen {
 		gameMusic.play();
 		
 	    // cargar imagen de la nave, 64x64
-		if(dificultad == 1) {
-			nave = new Nave4wayshoot(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainEasyShip.png")),
+		if(dificultad == 1 ) {
+			DirectorNaves Director = new DirectorNaves();
+			NaveBuildercrear Builder = new NaveBuildercrear();
+			Director.buildNavebasica(Builder);
+			nave = Builder.Build(2);
+			/*nave = new Nave4wayshoot(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainEasyShip.png")),
     				Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")), 
     				new Texture(Gdx.files.internal("Rocket2.png")), 
-    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3"))); 
+    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3"))); */
 		}
 		else {
-			nave = new NaveBasica(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
+			DirectorNaves Director = new DirectorNaves();
+			NaveBuildercrear Builder = new NaveBuildercrear();
+			Director.buildNave4way(Builder);
+			nave = Builder.Build(1);
+			/*nave = new NaveBasica(Gdx.graphics.getWidth()/2-50,30,new Texture(Gdx.files.internal("MainShip3.png")),
     				Gdx.audio.newSound(Gdx.files.internal("hurt.ogg")), 
     				new Texture(Gdx.files.internal("Rocket2.png")), 
-    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3"))); 
+    				Gdx.audio.newSound(Gdx.files.internal("pop-sound.mp3"))); */
 		}
 	    
         nave.setVidas(vidas);

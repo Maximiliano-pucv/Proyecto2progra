@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 public class NaveBasica extends Nave {
 	public NaveBasica(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala){
-		super(x, y, tx, soundChoque, txBala, soundBala);
-		
+		//super(x, y, tx, soundChoque, txBala, soundBala);
+		super(x, y, tx, soundChoque, txBala, soundBala,3,0,0,false,false,50);
 	}
-	
+	/*(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala, int vidas,
+	float xVel, float  yVel, boolean herido, boolean destruida, int tiempoheridoMax)*/
 
 	@Override
 	public void disparar(PantallaJuego juego) {
