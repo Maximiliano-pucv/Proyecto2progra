@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -43,5 +44,35 @@ public class Jefe implements PerfilEnemigo{
     
 	public void setVida(int V) {
 		vida = V;
+	}
+
+	@Override
+	public int getVida(int v) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getXSpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setXSpeed(int xSpeed) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getySpeed() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setySpeed(int ySpeed) {
+		// TODO Auto-generated method stub
+		
 	}
 }
