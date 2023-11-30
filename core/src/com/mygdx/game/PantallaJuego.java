@@ -123,9 +123,14 @@ public class PantallaJuego implements Screen, Dificultad {
             for (int j = 0; j < balls.getsizeB1(); j++) {    
               if (b.checkCollision(balls.getB1(j))) {          
             	 explosionSound.play();
-            	 balls.remove(j);
-            	 j--;
-            	 score +=10;
+            	 balls.getB1(j).attacked();
+            	 if(balls.getB1(j).isdestroyed()) {
+            		 balls.remove(j);
+            		 score +=10;
+            		 j--;
+            	 }
+            	 
+            	
               }   	  
   	        }
             if (b.isDestroyed()) {
