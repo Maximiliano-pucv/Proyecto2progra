@@ -10,5 +10,4 @@ public interface NaveBuilder {
 	public void SoundHerido(Sound sonidoherido);
 	public void SoundBala(Sound sonidobala);
 	public void TextureBala(Texture txBala);
-	
 }

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class NaveBuildercrear implements NaveBuilder {
 
-	 private int xPos = 0;
+	 	private int xPos = 0;
 	    private int yPos = 0;
 	    private Texture tx;
 	    private Sound sonidoHerido;
