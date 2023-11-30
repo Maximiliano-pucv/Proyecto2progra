@@ -81,6 +81,6 @@ public class Ball2 implements PerfilEnemigo{
 		vida = V;
 	}
     public int getVida(int v) {
-    	return v;
+    	return vida;
     }
 }
