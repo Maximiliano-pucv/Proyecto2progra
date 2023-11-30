@@ -107,7 +107,6 @@ public class EveryBalls {
 	}
 
 	private int  abs(int i) {
-		// TODO Auto-generated method stub
 		if(i < 0) return i*-1;
 		return i;
 	}
