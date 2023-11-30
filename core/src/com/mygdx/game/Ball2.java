@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
 
-public class Ball2 implements PerfilEnemigo{
+public class Ball2 {
 	//añadi comentarios
 	private int x;
     private int y;
@@ -15,10 +15,10 @@ public class Ball2 implements PerfilEnemigo{
     private int ySpeed;
     private Sprite spr;
     private int vida;
-    public Ball2(int x, int y, int size, int xSpeed, int ySpeed, Texture tx) {
+    public Ball2(int x, int y, int size, int xSpeed, int ySpeed,int vida, Texture tx) {
     	spr = new Sprite(tx);
     	this.x = x; 
- 	
+    	this.vida = vida;
         //validar que borde de esfera no quede fuera
     	if (x-size < 0) this.x = x+size;
     	if (x+size > Gdx.graphics.getWidth())this.x = x-size;
@@ -65,6 +65,16 @@ public class Ball2 implements PerfilEnemigo{
             aux.setySpeed(- aux.getySpeed()); 
         }
     }
+    
+    public void attacked() {
+    	vida--;
+    }
+    
+    public boolean isdestroyed() {
+    	if(vida < 1) return true;
+    	return false;
+    }
+    
 	public int getXSpeed() {
 		return xSpeed;
 	}
@@ -80,7 +90,7 @@ public class Ball2 implements PerfilEnemigo{
 	public void setVida(int V) {
 		vida = V;
 	}
-    public int getVida(int v) {
-    	return v;
+    public int getVida() {
+    	return vida;
     }
 }

@@ -12,6 +12,7 @@ public class Bullet {
 	private int ySpeed;
 	private boolean destroyed = false;
 	private Sprite spr;
+	private boolean Used = false;
 	    
 	    public Bullet(float x, float y, int xSpeed, int ySpeed, Texture tx) {
 	    	spr = new Sprite(tx);
@@ -35,9 +36,11 @@ public class Bullet {
 	    }
 	    
 	    public boolean checkCollision(Ball2 b2) {
-	        if(spr.getBoundingRectangle().overlaps(b2.getArea())){
+	        if(spr.getBoundingRectangle().overlaps(b2.getArea())&&Used==false){
+	        	
 	        	// Se destruyen ambos
 	            this.destroyed = true;
+	            this.Used = true;
 	            return true;
 	
 	        }
