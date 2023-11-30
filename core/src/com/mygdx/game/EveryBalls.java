@@ -82,14 +82,14 @@ public class EveryBalls {
 			if(ronda == 1) {
 				Ball2 bb = new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
 						   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
-			  	           20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4), 
+			  	           20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4),3, 
 			  	           new Texture(Gdx.files.internal("aGreyMedium4.png")));
 				add(bb);	
 			}
 			else {
 				Ball2 bb = new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
 						   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
-			  	           20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4), 
+			  	           20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4),3, 
 			  	           new Texture(Gdx.files.internal("aGreySmall.png")));
 				add(bb);
 			}
