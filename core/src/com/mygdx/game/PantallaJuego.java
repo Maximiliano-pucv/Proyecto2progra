@@ -19,6 +19,7 @@ public class PantallaJuego implements Screen, Dificultad {
 	private OrthographicCamera camera;	
 	private SpriteBatch batch;
 	private Sound explosionSound;
+	private Sound ballhurt;
 	private Music gameMusic;
 	private int score;
 	private int ronda;
@@ -48,6 +49,7 @@ public class PantallaJuego implements Screen, Dificultad {
 		camera.setToOrtho(false, 800, 640);
 		//inicializar assets; musica de fondo y efectos de sonido
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosionXD.mp3"));
+		ballhurt = Gdx.audio.newSound(Gdx.files.internal("ChargerBulletHit_ArmorThrough.wav"));
 		explosionSound.setVolume(1,0.5f);
 		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav")); //
 		
@@ -122,9 +124,10 @@ public class PantallaJuego implements Screen, Dificultad {
             b.update();
             for (int j = 0; j < balls.getsizeB1(); j++) {    
               if (b.checkCollision(balls.getB1(j))) {          
-            	 explosionSound.play();
+            	 ballhurt.play();
             	 balls.getB1(j).attacked();
             	 if(balls.getB1(j).isdestroyed()) {
+            		 explosionSound.play();
             		 balls.remove(j);
             		 score +=10;
             		 j--;

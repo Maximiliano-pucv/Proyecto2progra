@@ -78,23 +78,38 @@ public class EveryBalls {
 	//creacion de asteroides
 	public void crearAsteroides(int ronda, int cantAsteroides, int velXAsteroides, int velYAsteroides) {
 		Random r = new Random();
+		Ball2Creator b = new Ball2Creator();
 		for (int i = 0; i < cantAsteroides; i++) {
 			if(ronda == 1) {
-				Ball2 bb = new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
+				/*Ball2 bb = new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
 						   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
 			  	           20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4),3, 
-			  	           new Texture(Gdx.files.internal("aGreyMedium4.png")));
+			  	           new Texture(Gdx.files.internal("aGreyMedium4.png")));*/
+				
+				/*System.out.println(abs(r.nextInt()%3));
+				Ball2 bb = new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
+						   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
+			  	           1, 1, 1,3, 
+			  	           new Texture(Gdx.files.internal("aGreyMedium4.png")));*/
+				Ball2 bb = b.createBall(abs(r.nextInt()%3), r);
 				add(bb);	
 			}
 			else {
-				Ball2 bb = new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
+				/*Ball2 bb = new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
 						   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
 			  	           20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4),3, 
-			  	           new Texture(Gdx.files.internal("aGreySmall.png")));
+			  	           new Texture(Gdx.files.internal("aGreySmall.png")));*/
+				Ball2 bb = b.createBall(abs(r.nextInt()%3), r);
 				add(bb);
 			}
 		}
 		    
+	}
+
+	private int  abs(int i) {
+		// TODO Auto-generated method stub
+		if(i < 0) return i*-1;
+		return i;
 	}
 	
 	
