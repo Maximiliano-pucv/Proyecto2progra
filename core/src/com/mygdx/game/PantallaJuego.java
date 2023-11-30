@@ -51,7 +51,7 @@ public class PantallaJuego implements Screen, Dificultad {
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosionXD.mp3"));
 		ballhurt = Gdx.audio.newSound(Gdx.files.internal("ChargerBulletHit_ArmorThrough.wav"));
 		explosionSound.setVolume(1,0.5f);
-		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav")); //
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Musica de fondo nivel normal.mp3")); //
 		
 		gameMusic.setLooping(true);
 		gameMusic.setVolume(0.5f);
