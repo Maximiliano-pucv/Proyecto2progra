@@ -93,9 +93,9 @@ public class EveryBalls {
 						   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
 			  	           1, 1, 1,3, 
 			  	           new Texture(Gdx.files.internal("aGreyMedium4.png")));*/
-				Ball2 bb = b.createBall(abs(r.nextInt()%3), r);
+				//Ball2 bb = b.createBall(abs(r.nextInt()%3), r);
+				Ball2 bb = b.createball2(abs(r.nextInt()%10), r);
 				add(bb);	
-			
 				/*Ball2 bb = new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
 						   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
 			  	           20+r.nextInt(10), velXAsteroides+r.nextInt(4), velYAsteroides+r.nextInt(4),3, 

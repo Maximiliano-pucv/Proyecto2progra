@@ -47,9 +47,9 @@ public class Ball2 {
     }
     
     public void IsOut() {
-    	if (x-size < 0) this.x = x+size;
+    	//if (x-size < 0) this.x = x+size;
     	if (x+size > Gdx.graphics.getWidth())this.x = x-size;
-    	if (y-size < 0) this.y = y+size;
+    	//if (y-size < 0) this.y = y+size;
     	if (y+size > Gdx.graphics.getHeight())this.y = y-size;
     	
     }

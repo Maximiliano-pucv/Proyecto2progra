@@ -45,4 +45,35 @@ public class Ball2Creator {
 	  	           new Texture(Gdx.files.internal("aGreyLarge.png")));
 		}
 	}
+	public Ball2 createball2(int i, Random r ) {
+		switch(i) {
+		case 0:
+		case 1:
+		case 2:
+		case 3:
+			return new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
+					   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
+					   20+r.nextInt(10), 5, 5,2, 
+		  	           new Texture(Gdx.files.internal("aGreyMedium4.png")));
+		case 4:
+		case 5:
+		case 6:
+		case 7:
+			return new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
+					   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
+					   20+r.nextInt(10), 10, 10,1, 
+		  	           new Texture(Gdx.files.internal("aGreySmall.png")));
+		case 8:
+		case 9:
+			return new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
+					   100+r.nextInt((int)Gdx.graphics.getHeight()-100),
+					   20+r.nextInt(10), 1, 1,3, 
+		  	           new Texture(Gdx.files.internal("aGreyLarge.png")));
+		default:  
+			return new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
+				   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
+				   1, 100, 100,2, 
+	  	           new Texture(Gdx.files.internal("aGreyLarge.png")));
+		}
+	}
 }
