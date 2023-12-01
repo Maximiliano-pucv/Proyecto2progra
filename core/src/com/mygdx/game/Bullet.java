@@ -48,5 +48,20 @@ public class Bullet {
 	    }
 	    
 	    public boolean isDestroyed() {return destroyed;}
-	
+	public boolean checkCollisionJ(Jefe j) {
+		if(spr.getBoundingRectangle().overlaps(j.getAreaC()) && Used == false) {
+			this.destroyed= true;
+			this.Used = true;
+			return true;
+		}
+		else {
+			if(spr.getBoundingRectangle().overlaps(j.getAreaO()) && Used == false) {
+				this.destroyed = true;
+				this.Used = true;
+				j.setVida(j.getVida()-1);
+				return true;
+			}
+		}
+		return false;
+	}
 }

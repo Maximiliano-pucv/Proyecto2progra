@@ -20,7 +20,6 @@ public abstract class Nave {
     private boolean herido;
     private int tiempoHeridoMax;
     private int tiempoHerido;
-    
     public Nave(int x, int y, Texture tx, Sound soundChoque, Texture txBala, Sound soundBala, int vidas,
     		float xVel, float  yVel, boolean herido, boolean destruida, int tiempoheridoMax){
     	this.destruida = destruida;
@@ -67,6 +66,32 @@ public abstract class Nave {
         }
         return false;
     }
+	
+	public boolean checkCollisionJefe(Jefe j) {
+		if(!herido && j.getAreaC().overlaps(spr.getBoundingRectangle()) || !herido && j.getAreaO().overlaps(spr.getBoundingRectangle())) {
+			if(xVel < 0) {
+				xVel = -xVel;
+				spr.setX(spr.getX()+5);
+			}
+			else {
+				xVel = -xVel;
+				spr.setX(spr.getX()-5);
+			}
+			if(yVel > 0) {
+				yVel = -yVel;
+				spr.setY(spr.getY()-5);
+			}
+			vidas--;
+			herido = true;
+			tiempoHerido = tiempoHeridoMax;
+			sonidoHerido.play();
+			if(vidas<=0) {
+				destruida = true;
+			}
+			return true;
+		}
+		return false;
+	}
 	
 	public abstract void disparar(PantallaJuego juego);
 	

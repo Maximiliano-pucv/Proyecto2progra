@@ -1,32 +1,34 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 
-public class Jefe{
+import java.util.*;
+
+public class JefeF2 implements PerfilJefe  {
 	private int x;
 	private int y;
-	//private int xSpeed;
-	//private int ySpeed;
 	private Sprite sprC;
 	private Sprite sprO;
 	private int vida;
+	private ArrayList<MiniOjo> ojos = new ArrayList<>();
 	
-	public Jefe(int x, int y, Texture tx,int vida) {
+	public JefeF2(int x, int y, Texture tx,int vida) {
 		sprC = new Sprite(tx);
 		sprC.setPosition(x,y);
 		sprC.setBounds(x, y, 1200, 200);
 		this.vida = vida;
+	}
+	
+	public void setVida(int V) {
+		vida = V;
 		
 	}
 	
-	public void crearOjo(int x, int y, Texture tx) {
-		sprO = new Sprite(tx);
-		sprO.setPosition(x, y);
-		sprO.setBounds(x, y, 233, 60);
+	public int getVida() {
+		return vida;
 	}
 	public Rectangle getAreaC() {
 		return sprC.getBoundingRectangle();
@@ -38,18 +40,11 @@ public class Jefe{
     public void draw(SpriteBatch batch) {
     	sprC.draw(batch);
     	sprO.draw(batch);
+    	for(int i = 0; i< ojos.size(); i++) {
+    		MiniOjo aux = ojos.get(i);
+    		aux.draw(batch);
+    	}
     }
-    
-    
-	public void setVida(int V) {
-		vida = V;
-	}
-
-	public int getVida() {
-		// TODO Auto-generated method stub
-		return vida;
-	}
-	
 	public void atacar(PantallaJuego juego) {
 		
 	}

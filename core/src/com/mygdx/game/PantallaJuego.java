@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 //test
 
@@ -27,15 +28,19 @@ public class PantallaJuego implements Screen, Dificultad {
 	private int velYAsteroides; 
 	private int cantAsteroides;
 	private int dificultad;
-	//private Nave4 nave;
-	
+	private boolean JefeV = false;
+	private Sprite fondo;
+	//private Nave4 nave
+	private Jefe jefe;
+	private JefeF2 jefeF2;
 	private Nave nave;
 	private  EveryBalls balls = new EveryBalls();
 	private  ArrayList<Bullet> balas = new ArrayList<>();
-
-
+	private ArrayList<Bullet> balasJ = new ArrayList<>();
+	
 	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score,  
 			int velXAsteroides, int velYAsteroides, int cantAsteroides, int dificultad) {
+		fondo = new Sprite(new Texture(Gdx.files.internal("Fondo.png")));
 		this.dificultad = dificultad;
 		this.game = game;
 		this.ronda = ronda;
@@ -51,18 +56,36 @@ public class PantallaJuego implements Screen, Dificultad {
 		explosionSound = Gdx.audio.newSound(Gdx.files.internal("explosionXD.mp3"));
 		ballhurt = Gdx.audio.newSound(Gdx.files.internal("ChargerBulletHit_ArmorThrough.wav"));
 		explosionSound.setVolume(1,0.5f);
-		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Musica de fondo nivel normal.mp3")); //
+		//gameMusic = Gdx.audio.newMusic(Gdx.files.internal("piano-loops.wav")); //
+	
 		
-		gameMusic.setLooping(true);
-		gameMusic.setVolume(0.5f);
-		gameMusic.play();
+		
+		//gameMusic.setLooping(true);
+		//gameMusic.setVolume(0.5f);
+		//gameMusic.play();
 		
 	    // cargar imagen de la nave, 64x64
 		dificultadJuego();
         nave.setVidas(vidas);
-        balls.crearAsteroides(ronda, cantAsteroides);
+        if(this.ronda % 2 == 0 && this.ronda %5 == 0) {
+        	gameMusic = Gdx.audio.newMusic(Gdx.files.internal("The-Blade-Sentinel.ogg"));
+        	JefeV = true;
+        	crearJefe();
+        }
+        else {
+        	gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Musica de fondo nivel normal.mp3"));
+        	balls.crearAsteroides(ronda, cantAsteroides);
+        	//crearJefe();
+        }
+		gameMusic.setLooping(true);
+		gameMusic.setVolume(0.5f);
+		gameMusic.play();
 	}
 	
+	public void crearJefe() {
+		jefe = new Jefe(0,600, new Texture(Gdx.files.internal("CuerpoJefe.png")),30);
+		jefe.crearOjo(483, 545, new Texture(Gdx.files.internal("Ojo jefe.png")));
+	}
     
 	public void dibujaEncabezado() {
 		CharSequence str = "Vidas: "+nave.getVidas()+" Ronda: "+ronda;
@@ -74,8 +97,9 @@ public class PantallaJuego implements Screen, Dificultad {
 	
 	@Override
 	public void render(float delta) {
-		  Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		  //Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
           batch.begin();
+          fondo.draw(batch);
 		  dibujaEncabezado();
 	      if (!nave.estaHerido()) {
 		      // colisiones entre balas y asteroides y su destruccion
@@ -87,15 +111,33 @@ public class PantallaJuego implements Screen, Dificultad {
 	    	  //colisiones entre asteroides y sus rebotes  
 	    	  balls.colisionAsteroides();
 	    	  
+	    	  
+	    	  //colisiones entre jefe y bala
+	    	  if(JefeV) {
+	    		  colisionByJ();
+	    	  }
+	    	  
 	      }
 	      //dibujar balas
 	      for (Bullet b : balas) {       
 	          b.draw(batch);
 	      }
 	      nave.draw(batch, this);
-	      
 	      //dibujar asteroides y manejar colision con nave
-	      balls.colisionNave(nave, batch);
+	      if(!JefeV) {
+	    	  balls.colisionNave(nave, batch);
+	      }
+	      else {
+	    	  if(jefe.getVida() == 15) {
+	    		  jefeF2.draw(batch);
+	    		  
+	    	  }
+	    	  else {
+		    	  jefe.draw(batch);
+		    	  nave.checkCollisionJefe(jefe);  
+	    	  }
+	      }
+	      
 	      
 	      //Game Over
 	      if (nave.estaDestruido()) {
@@ -108,14 +150,27 @@ public class PantallaJuego implements Screen, Dificultad {
   		  }
 	      batch.end();
 	      
-	      //nivel completado
-	      if (balls.getsizeB1()==0) {
-			Screen ss = new PantallaJuego(game,ronda+1, nave.getVidas(), score, 
-					velXAsteroides+3, velYAsteroides+3, cantAsteroides+3,dificultad);
-			ss.resize(1200, 800);
-			game.setScreen(ss);
-			dispose();
-		  }	 
+	      //nivel completado con meteoritos
+	      if(!JefeV) {
+		      if (balls.getsizeB1()==0) {
+					Screen ss = new PantallaJuego(game,ronda+1, nave.getVidas(), score, 
+							velXAsteroides+3, velYAsteroides+3, cantAsteroides+3,dificultad);
+					ss.resize(1200, 800);
+					game.setScreen(ss);
+					dispose();
+				  }	
+	      }
+	      else {
+	    	 if(jefe.getVida()==0) {
+					Screen ss = new PantallaJuego(game,ronda+1, nave.getVidas(), score, 
+							velXAsteroides+3, velYAsteroides+3, cantAsteroides+2,dificultad);
+					ss.resize(1200, 800);
+					game.setScreen(ss);
+					dispose();
+	    	  }
+	    	  
+	      }
+ 
 	}
     
 	public void colisionBYA() {
@@ -123,8 +178,7 @@ public class PantallaJuego implements Screen, Dificultad {
             Bullet b = balas.get(i);
             b.update();
             score = balls.colisionBalaYAst(b, ballhurt, explosionSound, score);
-            /*for (int j = 0; j < balls.getsizeB1(); j++) {    
-              if (b.checkCollision(balls.getB1(j))) {          
+              /*if (b.checkCollision(balls.getB1(j))) {          
             	 ballhurt.play();
             	 balls.getB1(j).attacked();
             	 if(balls.getB1(j).isdestroyed()) {
@@ -133,12 +187,23 @@ public class PantallaJuego implements Screen, Dificultad {
             		 score +=10;
             		 j--;
             	 }
-              }   	  
-  	        }*/
+            	 
+            	  	  
+  	        }
             if (b.isDestroyed()) {
                 balas.remove(b);
                 i--; //para no saltarse 1 tras eliminar del arraylist
-            }
+            }*/
+		}
+	}
+	
+	public void colisionByJ() {
+		for(int i = 0; i< balas.size(); i++) {
+			Bullet b = balas.get(i);
+			b.update();
+			if(b.checkCollisionJ(jefe)) {
+				ballhurt.play();
+			}
 		}
 	}
 	
