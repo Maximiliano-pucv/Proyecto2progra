@@ -60,7 +60,7 @@ public class PantallaJuego implements Screen, Dificultad {
 	    // cargar imagen de la nave, 64x64
 		dificultadJuego();
         nave.setVidas(vidas);
-        balls.crearAsteroides(ronda, cantAsteroides, velXAsteroides, velYAsteroides);
+        balls.crearAsteroides(ronda, cantAsteroides);
 	}
 	
     
@@ -111,7 +111,7 @@ public class PantallaJuego implements Screen, Dificultad {
 	      //nivel completado
 	      if (balls.getsizeB1()==0) {
 			Screen ss = new PantallaJuego(game,ronda+1, nave.getVidas(), score, 
-					velXAsteroides+3, velYAsteroides+3, cantAsteroides+10,dificultad);
+					velXAsteroides+3, velYAsteroides+3, cantAsteroides+3,dificultad);
 			ss.resize(1200, 800);
 			game.setScreen(ss);
 			dispose();
@@ -122,7 +122,8 @@ public class PantallaJuego implements Screen, Dificultad {
 		for (int i = 0; i < balas.size(); i++) {
             Bullet b = balas.get(i);
             b.update();
-            for (int j = 0; j < balls.getsizeB1(); j++) {    
+            score = balls.colisionBalaYAst(b, ballhurt, explosionSound, score);
+            /*for (int j = 0; j < balls.getsizeB1(); j++) {    
               if (b.checkCollision(balls.getB1(j))) {          
             	 ballhurt.play();
             	 balls.getB1(j).attacked();
@@ -132,10 +133,8 @@ public class PantallaJuego implements Screen, Dificultad {
             		 score +=10;
             		 j--;
             	 }
-            	 
-            	
               }   	  
-  	        }
+  	        }*/
             if (b.isDestroyed()) {
                 balas.remove(b);
                 i--; //para no saltarse 1 tras eliminar del arraylist

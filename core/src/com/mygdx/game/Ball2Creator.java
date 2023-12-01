@@ -25,7 +25,7 @@ public class Ball2Creator {
 		switch (i) {
 		case 0:
 			return new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
-					   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
+					   100+r.nextInt((int)Gdx.graphics.getHeight()-100),
 					   20+r.nextInt(10), 1, 1,3, 
 		  	           new Texture(Gdx.files.internal("aGreyLarge.png")));
 		case 1:
@@ -41,7 +41,7 @@ public class Ball2Creator {
 		default:  
 			return new Ball2(r.nextInt((int)Gdx.graphics.getWidth()),
 				   50+r.nextInt((int)Gdx.graphics.getHeight()-50),
-	  	           1, 100, 100,2, 
+				   1, 100, 100,2, 
 	  	           new Texture(Gdx.files.internal("aGreyLarge.png")));
 		}
 	}

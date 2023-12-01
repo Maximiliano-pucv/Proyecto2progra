@@ -15,7 +15,9 @@ public class Ball2 {
     private int ySpeed;
     private Sprite spr;
     private int vida;
+    private int size;
     public Ball2(int x, int y, int size, int xSpeed, int ySpeed,int vida, Texture tx) {
+    	this.size = size;
     	spr = new Sprite(tx);
     	this.x = x; 
     	this.vida = vida;
@@ -40,7 +42,16 @@ public class Ball2 {
         	setXSpeed(getXSpeed() * -1);
         if (y+getySpeed() < 0 || y+getySpeed()+spr.getHeight() > Gdx.graphics.getHeight())
         	setySpeed(getySpeed() * -1);
+        IsOut();
         spr.setPosition(x, y);
+    }
+    
+    public void IsOut() {
+    	if (x-size < 0) this.x = x+size;
+    	if (x+size > Gdx.graphics.getWidth())this.x = x-size;
+    	if (y-size < 0) this.y = y+size;
+    	if (y+size > Gdx.graphics.getHeight())this.y = y-size;
+    	
     }
     
     public Rectangle getArea() {
