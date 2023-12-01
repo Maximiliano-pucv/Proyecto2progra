@@ -85,6 +85,9 @@ public class PantallaJuego implements Screen, Dificultad {
 	public void crearJefe() {
 		jefe = new Jefe(0,600, new Texture(Gdx.files.internal("CuerpoJefe.png")),30);
 		jefe.crearOjo(483, 545, new Texture(Gdx.files.internal("Ojo jefe.png")));
+		Singleton instancia = Singleton.getInstance(jefe);
+		
+		
 	}
     
 	public void dibujaEncabezado() {

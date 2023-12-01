@@ -11,7 +11,7 @@ public class Singleton {
 	public Jefe getData() {
 		return data;
 	}
-	public static Singleton getData(Jefe data) {
+	public static Singleton getInstance(Jefe data) {
 		if(instancia == null) {
 			synchronized(Singleton.class) {
 				if (instancia == null) {
