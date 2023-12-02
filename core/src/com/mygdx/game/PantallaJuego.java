@@ -37,18 +37,23 @@ public class PantallaJuego implements Screen, Dificultad {
 	private  EveryBalls balls = new EveryBalls();
 	private  ArrayList<Bullet> balas = new ArrayList<>();
 	private ArrayList<Bullet> balasJ = new ArrayList<>();
+	private Singleton instance;
+	private int timer;
+	private int fase;
 	
 	public PantallaJuego(SpaceNavigation game, int ronda, int vidas, int score,  
 			int velXAsteroides, int velYAsteroides, int cantAsteroides, int dificultad) {
 		fondo = new Sprite(new Texture(Gdx.files.internal("Fondo.png")));
 		this.dificultad = dificultad;
 		this.game = game;
-		this.ronda = ronda;
+		this.ronda = ronda; // si quieren aplicar la pelea del jefe, el valor de la ronda debe ser 10
 		this.score = score;
 		this.velXAsteroides = velXAsteroides;
 		this.velYAsteroides = velYAsteroides;
 		this.cantAsteroides = cantAsteroides;
-		
+		instance = Singleton.getInstance();
+		timer = 0;
+		fase = 1;
 		batch = game.getBatch();
 		camera = new OrthographicCamera();	
 		camera.setToOrtho(false, 800, 640);
@@ -85,11 +90,9 @@ public class PantallaJuego implements Screen, Dificultad {
 	public void crearJefe() {
 		jefe = new Jefe(0,600, new Texture(Gdx.files.internal("CuerpoJefe.png")),30);
 		jefe.crearOjo(483, 545, new Texture(Gdx.files.internal("Ojo jefe.png")));
-		Singleton instancia = Singleton.getInstance(jefe);
-		
-		
+		jefeF2 = new JefeF2(0,600, new Texture(Gdx.files.internal("CuerpoJefe.png")),15);
+		jefeF2.crearOjo(483, 545, new Texture(Gdx.files.internal("Ojo jefe.png")));
 	}
-    
 	public void dibujaEncabezado() {
 		CharSequence str = "Vidas: "+nave.getVidas()+" Ronda: "+ronda;
 		game.getFont().getData().setScale(2f);		
@@ -117,7 +120,14 @@ public class PantallaJuego implements Screen, Dificultad {
 	    	  
 	    	  //colisiones entre jefe y bala
 	    	  if(JefeV) {
-	    		  colisionByJ();
+	    		  if(jefe != null) {
+	    			  colisionByJ(fase);//bala y jefe
+	    		  }
+	    		  else {
+	    			  colisionByJ(fase);
+	    		  }
+	    		  
+	    		  colisionBjyN();//bala jefe yjugador
 	    	  }
 	    	  
 	      }
@@ -125,14 +135,37 @@ public class PantallaJuego implements Screen, Dificultad {
 	      for (Bullet b : balas) {       
 	          b.draw(batch);
 	      }
+	      
+	      if(JefeV) {
+	    	  if(fase == 1 && timer == 100 && jefe != null ) {
+	    		  jefe.atacar(this);
+	    		  timer = 0;
+	
+	    	  }
+	    	  else {
+	    		  if(timer == 200 && jefeF2.getVida() <= 15 && fase == 2) {
+	    			  jefeF2.atacar(this);
+	    			  timer = 0;
+	    		  }
+	    	  }
+	    	  for (Bullet b : balasJ){
+	    		  b.draw(batch);
+	    	  }
+
+	      }
 	      nave.draw(batch, this);
 	      //dibujar asteroides y manejar colision con nave
 	      if(!JefeV) {
 	    	  balls.colisionNave(nave, batch);
 	      }
 	      else {
-	    	  if(jefe.getVida() == 15) {
+	    	  if(jefe == null || jefe.getVida() == 15) {
+	    		  if(jefe != null) {
+	    			  jefe = null;
+	    		  }
+	    		  fase = 2;
 	    		  jefeF2.draw(batch);
+	    		  nave.checkCollisionJefe(jefeF2);
 	    		  
 	    	  }
 	    	  else {
@@ -164,7 +197,7 @@ public class PantallaJuego implements Screen, Dificultad {
 				  }	
 	      }
 	      else {
-	    	 if(jefe.getVida()==0) {
+	    	 if(jefeF2.getVida()==0) {
 					Screen ss = new PantallaJuego(game,ronda+1, nave.getVidas(), score, 
 							velXAsteroides+3, velYAsteroides+3, cantAsteroides+2,dificultad);
 					ss.resize(1200, 800);
@@ -173,6 +206,7 @@ public class PantallaJuego implements Screen, Dificultad {
 	    	  }
 	    	  
 	      }
+	      timer++;
  
 	}
     
@@ -199,22 +233,55 @@ public class PantallaJuego implements Screen, Dificultad {
             }*/
 		}
 	}
-	
-	public void colisionByJ() {
+	//colosion balas nave y jefe
+	public void colisionByJ(int fase) {
 		for(int i = 0; i< balas.size(); i++) {
 			Bullet b = balas.get(i);
 			b.update();
-			if(b.checkCollisionJ(jefe)) {
-				ballhurt.play();
+			if(fase == 1) {
+				if(b.checkCollisionJ(jefe)) {
+					ballhurt.play();
+				}
+			}
+			else {
+				if (jefeF2.getCantMo()==0) {
+					if(b.checkCollisionJ(jefeF2)) {
+						
+						ballhurt.play();
+					}
+				}
+				else {
+					for(int j = 0; j<jefeF2.getCantMo(); j++) {
+						MiniOjo ojo = jefeF2.getOjo(j);
+						if(b.checkCollisonOjP(ojo)){
+							ballhurt.play();
+						}
+						jefeF2.checkVida();
+					}
+				}
+				
+			}
+
+		}
+	}
+	//colison balas jefe y nave
+	public void colisionBjyN() {
+		for (int i = 0;i<balasJ.size();i++) {
+			Bullet b = balasJ.get(i);
+			b.update();
+			if(nave.checkCollisionB(b)) {
+				balasJ.remove(i);
+				i--;
 			}
 		}
 	}
 	
-	
     public boolean agregarBala(Bullet bb) {
     	return balas.add(bb);
     }
-	
+	public boolean agregarBalaj(Bullet bb) {
+		return balasJ.add(bb);
+	}
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub

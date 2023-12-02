@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 
 public class Bullet {
@@ -48,7 +49,8 @@ public class Bullet {
 	    }
 	    
 	    public boolean isDestroyed() {return destroyed;}
-	public boolean checkCollisionJ(Jefe j) {
+	    
+	public boolean checkCollisionJ(PerfilJefe j) {
 		if(spr.getBoundingRectangle().overlaps(j.getAreaC()) && Used == false) {
 			this.destroyed= true;
 			this.Used = true;
@@ -63,5 +65,30 @@ public class Bullet {
 			}
 		}
 		return false;
+	}
+	
+	public boolean checkCollisonOjP(MiniOjo o) {
+		if(spr.getBoundingRectangle().overlaps(o.getArea()) && Used == false) {
+			this.destroyed = true;
+			this.Used = true;
+			o.setVida(o.getVida()-1);
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public Rectangle getArea() {
+		return spr.getBoundingRectangle();
+	}
+	public boolean getUse() {
+		return Used;
+	}
+	public void setUse(boolean Use) {
+		Used = Use;
+	}
+	
+	public void setDest(boolean dest) {
+		destroyed = dest;
 	}
 }

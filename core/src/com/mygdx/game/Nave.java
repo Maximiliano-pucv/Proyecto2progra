@@ -67,7 +67,7 @@ public abstract class Nave {
         return false;
     }
 	
-	public boolean checkCollisionJefe(Jefe j) {
+	public boolean checkCollisionJefe(PerfilJefe j) {
 		if(!herido && j.getAreaC().overlaps(spr.getBoundingRectangle()) || !herido && j.getAreaO().overlaps(spr.getBoundingRectangle())) {
 			if(xVel < 0) {
 				xVel = -xVel;
@@ -92,7 +92,21 @@ public abstract class Nave {
 		}
 		return false;
 	}
-	
+	public boolean checkCollisionB(Bullet b) {
+		if(!herido && b.getArea().overlaps(spr.getBoundingRectangle()) && b.getUse() == false) {
+			vidas--;
+			herido = true;
+			b.setUse(true);
+			b.setDest(true);
+			tiempoHerido = tiempoHeridoMax;
+			sonidoHerido.play();
+			if(vidas <=0) {
+				destruida = true;
+			}
+			return true;
+		}
+		return false;
+	}
 	public abstract void disparar(PantallaJuego juego);
 	
 	// aca va lo del movimiento 

@@ -4,18 +4,17 @@ public class Singleton {
 	private static Singleton instancia;
 	private Jefe data;
 	
-	private Singleton (Jefe data) {
-		this.data = data;
+	private Singleton () {
 	}
 	
 	public Jefe getData() {
 		return data;
 	}
-	public static Singleton getInstance(Jefe data) {
+	public static Singleton getInstance() {
 		if(instancia == null) {
 			synchronized(Singleton.class) {
 				if (instancia == null) {
-					instancia = new Singleton(data);
+					instancia = new Singleton();
 				}
 			}
 		}
